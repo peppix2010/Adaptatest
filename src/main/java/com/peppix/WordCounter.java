@@ -29,11 +29,22 @@ public class WordCounter {
             System.exit(1);
         }
 
-        Map<String, Integer> wordCountMap = new HashMap<String, Integer>();
-        readFile(file, wordCountMap);
+        Map<String, Integer> wordCountMap = null;
+        List<Map.Entry<String, Integer>> wordCountList = null;
+        try {
+            wordCountMap = new HashMap<String, Integer>();
+            readFile(file, wordCountMap);
 
-        List<Map.Entry<String, Integer>> wordCountList = new LinkedList<Map.Entry<String, Integer>>(wordCountMap.entrySet());
-        orderWordCount(wordCountList);
+            wordCountList = new LinkedList<Map.Entry<String, Integer>>(wordCountMap.entrySet());
+            orderWordCount(wordCountList);
+        } catch (Exception e) {
+            System.out.println("The following error occurred: " + e.getMessage());
+        }
+        
+        finally {
+            wordCountMap = null;
+            wordCountList = null;
+        }
     }
 
     private static void readFile(File file, Map<String, Integer> wordCountMap) {
